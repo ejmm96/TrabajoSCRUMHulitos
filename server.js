@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
    database:   'scrum',
 });
 
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 3002
                    
 function query(request,callback){
    connection.query(request,function(que_err,que_res,que_fileds){
