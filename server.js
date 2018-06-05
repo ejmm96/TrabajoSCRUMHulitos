@@ -34,7 +34,7 @@ app.post("/post/register", function(req,res){
       Rol: req.body.rol,
       Nick: req.body.nick,
       password: req.body.password,
-      e-mail: req.body.email
+      "e-mail": req.body.email
    };
    var sql = 'insert into team_member set' + mysql.escape(quer);
    query(sql,function(result,err){
