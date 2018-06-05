@@ -11,7 +11,7 @@ var connection = mysql.createConnection({
 });
 
 const port = process.env.PORT || 3001
-                   
+
 function query(request,callback){
    connection.query(request,function(que_err,que_res,que_fileds){
             if(que_err) callback(undefined,que_err)
@@ -27,14 +27,14 @@ app.use(express.static('public')); //Esto es la pagina que se muestra al acceder
 app.post("/post/register", function(req,res){
    console.log('POST realizado con exito');
    console.log(req.body);
-    
+
     var quer = {
      //id_tm:2,
-      Nombre:req.body.name,
-      Rol:req.body.rol,
-      Nick:req.body.nick,
-      password:req.body.password,
-      "e-mail":req.body.email
+      Nombre: req.body.name,
+      Rol: req.body.rol,
+      Nick: req.body.nick,
+      password: req.body.password,
+      e-mail: req.body.email
    };
    var sql = 'insert into team_member set' + mysql.escape(quer);
    query(sql,function(result,err){
@@ -42,9 +42,9 @@ app.post("/post/register", function(req,res){
       //i++;
       res.redirect("/");
       res.end();
-   }) 
+   })
 });
-    
+
 app.post("/post/login", function(req,res){
     console.log('Estamos comprobando si esta en el sistema');
     console.log(req.body)
@@ -56,14 +56,14 @@ app.post("/post/login", function(req,res){
         res.redirect("/");   //Con esto volvemos a esa direccion
         res.end();
     })
-    
-    
-    
-     
-    
-    
+
+
+
+
+
+
 });
-   
+
 
 
 
