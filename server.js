@@ -24,44 +24,46 @@ app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.use(express.static('public')); //Esto es la pagina que se muestra al acceder a http://localhost/puerto
 
+//Peticion POST para registrar usuarios
 app.post("/post/register", function(req,res){
    console.log('POST realizado con exito');
    console.log(req.body);
 
     var quer = {
-     //id_tm:2,
       Nombre: req.body.name,
       Rol: req.body.rol,
       Nick: req.body.nick,
       password: req.body.password,
-      e-mail: req.body.email
+      "e-mail": req.body.email
    };
    var sql = 'insert into team_member set' + mysql.escape(quer);
    query(sql,function(result,err){
-      if(err)console.log(err)
-      //i++;
+     if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
+      //if(err)console.log(err)
+
+      if (result) return res.status(200).send({message: 'Usuario registrado con exito'})
+
       res.redirect("/");
       res.end();
    })
 });
 
-app.post("/post/login", function(req,res){
-    console.log('Estamos comprobando si esta en el sistema');
+//Peticion POST para logear usuarios (comprobamos si estan en el sistema)
+app.post("/get/login", function(req,res){
+    console.log('Comprobando usuario en el sistema...');
     console.log(req.body)
     var sql = 'select Nick, password from team_member where nick = "' + req.body.nick_login + '" and password= "' + req.body.password_login +'";';
     console.log(sql);
     query(sql,function(result,err){
-        if(err)console.log(err)
-        if(result) console.log("Cuenta valida");
-        res.redirect("/");   //Con esto volvemos a esa direccion
+      if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
+        //if(err) console.log(err)
+        if (result) {
+          return res.status(200).send({message: 'Cuenta valida'})
+          console.log("Cuenta valida");
+      }
+        res.redirect("/");
         res.end();
     })
-
-
-
-
-
-
 });
 
 

@@ -13,37 +13,37 @@
 
         <script src="controller.js"></script>
 
-    
+
     </head>
 
     <body ng-app = "scrumApp" ng-controller = "scrum-ctrl">
             <h1>Prueba Pagina de REGISTRO</h1>
 
-            <form> 
-                <label>Name: <input type="text" name = "name" ng-model="name" placeholder="Your name please"></label> <br>
-                <label>Rol: 
-                    <select ng-model = "rol" name="rol" placeholder="Your Rol">
-                        <option ng-model="developer" selected>Developer</option>
-                        <option ng-model="scrum-master">Scrum Master</option>
+            <form>
+                <label>Name: <input type="text" name = "name" ng-model="name" placeholder="Your name please" required></label> <br>
+                <label>Rol:
+                    <select ng-model = "rol" name="rol" required>
+                        <option selected>Developer</option>
+                        <option>Scrum Master</option>
                     </select>
                 </label><br>
-                <label>Nick: <input type="text" name = "nick" ng-model="nick"></label><br>
-                <label>Correo: <input type="text" name="email" ng-model = "email"></label><br>
-                <label>Password: <input type="password" name="password" ng-model = "password"></label><br>
-                    
-                <input type = "button" ng-click = "registro()" value="SIGN UP!">   
-                    
+                <label>Nick: <input type="text" name = "nick" ng-model="nick" required></label><br>
+                <label>Correo: <input type="text" name="email" ng-model = "email" required></label><br>
+                <label>Password: <input type="password" name="password" ng-model = "password" required></label><br>
+
+                <input type = "button" ng-click = "registro()" ng-disabled='!name || !rol || !nick || !email || !password'value="SIGN UP!">
+
             </form>
 
             <h1>Prueba Pagina de LOGIN</h1>
 
-                    
+
             <form>
             <label>Nick:<input type="text" name = "nick_login" ng-model="nick_login"></label><br>
                 <br>
             <label>Password: <input type="password" name="password_login" ng-model = "password_login"></label><br>
-                <br>  
-            <input type = "button" ng-click = "login()" value="LOG IN!">       
+                <br>
+            <input type = "button" ng-click = "login()" ng-disabled='!nick_login || !password_login' value="LOG IN!">
             </form>
 
             </body>
