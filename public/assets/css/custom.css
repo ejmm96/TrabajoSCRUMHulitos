@@ -12,6 +12,8 @@
 /*==============================================
     GENERAL  STYLES
     =============================================*/
+    @import url('https://fonts.googleapis.com/css?family=Krona+One');
+
 body {
     font-family: 'Open Sans', sans-serif;
 }
@@ -206,13 +208,18 @@ max-width:170px;
 }
 
 .navbar-cls-top .navbar-brand {
-	color: #fff;
-background: #C90000;
-width: 280px;
-text-align: center;
-height: 60px;
-font-size: 30px;
-font-weight: 700;
+  color: #fff;
+      font-family: 'Krona One', sans-serif;
+      background: #C90000;
+      width: 280px;
+      text-align: center;
+      height: 70px;
+      font-size: 25px;
+      font-weight: 700;
+      padding: 10px;
+      line-height: 1;
+      text-shadow: -3px 0 black, 0 2px black, 2px 0 black, 0 -3px black;
+
 }
 .active-menu {
     background-color:#C90000!important;

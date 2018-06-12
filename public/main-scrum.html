@@ -1,101 +1,516 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-      <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SCRUM-MASTER</title>
-	<!-- BOOTSTRAP STYLES-->
-    <link href="../assets/css/bootstrap.css" rel="stylesheet" />
-     <!-- FONTAWESOME STYLES-->
-    <link href="../assets/css/fontawesome-all.css" rel="stylesheet" />
-        <!-- CUSTOM STYLES-->
-    <link href="../assets/css/custom.css" rel="stylesheet" />
-     <!-- GOOGLE FONTS-->
-   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SCRUM-MASTER</title>
+  <!-- BOOTSTRAP STYLES-->
+  <link href="assets/css/bootstrap.css" rel="stylesheet" type='text/css' />
+  <!-- FONTAWESOME STYLES-->
+  <link href="assets/css/fontawesome-all.css" rel="stylesheet" type='text/css' />
+  <!-- CUSTOM STYLES-->
+  <link href="assets/css/custom.css" rel="stylesheet" type='text/css' />
+  <!-- GOOGLE FONTS-->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/html' />
+
+  <!-- TABLAS-->
+  <link rel="stylesheet" type="text/css" href="assets/css/util.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+
+  <!-- ANGULAR-->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
+
+
+  <script src="controller.js"></script>
+
 </head>
-<body>
-    <div id="wrapper">
-        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">SCRUM</a>
-            </div>
-  <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
-  <a href="index.html" class="btn btn-danger square-btn-adjust">Logout</a></div>
-        </nav>
-           <!-- /. NAV TOP  -->
-                <nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
-				<li class="text-center">
-                    <img src="assets/img/find_user.png" class="user-image img-responsive"/>
-					</li>
-                    <li>
-                        <a class="active-menu"  href="index.html"><i class="far fa-calendar-check fa-3x"></i>  Historias Completadas</a>
-                    </li>
-                     <li>
-                        <a  href="ui.html"><i class="fas fa-spinner fa-3x"></i>  Historias del Sprint Activo</a>
-                    </li>
-                    <li>
-                        <a  href="tab-panel.html"><i class="fas fa-sitemap fa-3x"></i>  Historias en múltiples Sprints</a>
-                    </li>
-						   <li  >
-                        <a   href="chart.html"><i class="fas fa-user-tag fa-3x"></i>  Historias asignadas </a>
-                    </li>
-
-                    <li>
-                        <a href="#"><i class="fab fa-black-tie fa-4x"></i>  SCRUM MASTER <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#">Añadir Historias</a>
-                            </li>
-
-                            <li>
-                                <a href="#">Eliminar Historias</a>
-                            </li>
-
-                            <li>
-                                <a href="#">Historias pendientes</a>
-                            </li>
-
-
-                                </ul>
-
-                            </li>
-                        </ul>
-                      </li>
+<body ng-app="scrumApp" ng-controller = "scrum-ctrl" data-ng-init="userData()">
+  <div id="wrapper">
+    <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="main-scrum.html">SCRUM MASTER</a>
+      </div>
+      <div class = "bienv">Welcome MASTER!
+        <a href="" ng-click ="editPerfil()" class="btn btn-danger round-btn-adjust">Editar Perfil</a></div>
+      </nav>
+      <!-- /. NAV TOP  -->
+      <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+          <ul class="nav" id="main-menu">
+            <li class="text-center">
+              <img src="assets/img/find_user.png" class="user-image img-responsive"/>
+            </li>
+            <li>
+              <a href="" ng-click="getStories()" ng-class="{'active-menu': activo === 1}" ><i class="far fa-calendar-check fa-3x"></i>  Historias Completadas</a>
+            </li>
+            <li>
+              <a href="" ng-click="getSprint()" ng-class="{'active-menu': activo === 2}"><i class="fas fa-spinner fa-3x"></i>  Historias del Sprint Activo</a>
+            </li>
+            <li>
+              <a  href="" ng-click="getMultipleSprint()" ng-class="{'active-menu': activo === 3}"><i class="fas fa-sitemap fa-3x"></i>  Historias en múltiples Sprints</a>
+            </li>
+            <li  >
+              <a   href="" ng-click="activeAssignedStories()" ng-class="{'active-menu': activo === 4}"><i class="fas fa-user-tag fa-3x"></i>  Historias asignadas <span class="fa arrow"></a>
+                <ul class="nav nav-second-level">
+                  <li>
+                    <form>
+                      <input type="text" ng-model="nombre" style=" width: 100%; height: 120%; padding: 15px;" placeholder="Nombre desarrollador...">
+                      <button style="color: #ffffff;text-align: center;width:  100%;padding: 6px;background-color: #36314a;" ng-click="getAssignedStories()">BUSCAR</button>
+                    </form>
+                  </li>
                 </ul>
-            </div>
+              </li>
 
-        </nav>
-        <!-- /. NAV SIDE  -->
-        <div id="page-wrapper" >
-            <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12">
-                     <h2>TEXTO DE PRUEBA</h2>
-                        <h5>Welcome ALEX , Love to see you back. </h5>
+              <li>
+                <a href="" ng-click="activeScrumOptions()" ng-class="{'active-menu': activo === 5}"><i class="fab fa-black-tie fa-4x"></i>  SCRUM MASTER <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                  <li>
+                    <a href="" ng-click="editSprints()">Crear Sprint</a>
+                  </li>
+                  <li>
+                    <a href="" ng-click="editStories()">Añadir, Editar y Eliminar Historias</a>
+                  </li>
+
+                  <li>
+                    <a href="" ng-click="sprintStories()">Añadir Historias al Sprint</a>
+                  </li>
+
+                  <li>
+                    <a href="" ng-click="getPendingStories()">Ver Historias Pendientes</a>
+                  </li>
+
+
+                </ul>
+
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper" >
+      <div id="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+
+            <div ng-show = 'perfil==1'>
+              <h2>EDITAR PERFIL</h2>
+
+              </button>
+              <div class="limiter">
+                <div class="container-table100">
+                  <div class="wrap-table100">
+                    <div class="table100 ver1 m-b-110">
+
+                      <form  id="empform" ng-submit="submitUser()">
+
+                        <table id="mytable" class="table table-bordered">
+
+                          <thead>
+                            <tr class="row100 head">
+                              <th class="column100" data-column="column1">Nombre</th>
+                              <th class="column100 column2" data-column="column2">Nick</th>
+                              <th class="column100 column3" data-column="column3">Password</th>
+                              <th class="column100 column4" data-column="column4">E-mail</th>
+                              <th class="column100 column5" data-column="column5">Edit / Delete</th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+
+                            <tr ng-repeat="user in profile">
+                              <td class = "td-user">
+                                <input  name="nombre{{index}}"   ng-model= "user.Nombre" ng-disabled="!enabledEditUser[{{$index}}]"/>
+                              </td>
+
+                              <td class = "td-user">
+                                <input  name="nick{{index}}"   ng-model= "user.Nick" ng-disabled="!enabledEditUser[{{$index}}]"/>
+                              </td>
+
+                              <td class = "td-user">
+                                <input  name="password{{index}}"   ng-model= "user.password" ng-disabled="!enabledEditUser[{{$index}}]"/>
+                              </td>
+
+                              <td class = "td-user">
+                                <input  name="email{{index}}"   ng-model= "user['e-mail']" ng-disabled="!enabledEditUser[{{$index}}]"/>
+                              </td>
+
+                              <td class = "td-user">
+                                <div class="buttons profile">
+                                  <button class="btn btn-primary edit"  onclick="this.disabled=true" ng-click="editUser($index)"><i class="fas fa-pen-square"></i></button>
+                                </div>
+                              </td>
+
+                            </tr>
+
+                          </tbody>
+
+                        </table>
+                        <input type="submit" class="btn btn-primary submit" value="Save Changes" />
+                      </form>
+
+                      <div class="clearfix"></div>
                     </div>
+
+                  </div>
+
                 </div>
               </div>
             </div>
 
-     <!-- /. WRAPPER  -->
-    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- JQUERY SCRIPTS -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
+
+
+
+
+
+
+
+            <div ng-show = 'dev==1'>
+              <h2>{{titulo}}</h2>
+
+              <div class="limiter">
+                <div class="container-table100">
+                  <div class="wrap-table100">
+                    <div class="table100 ver1 m-b-110">
+                      <table data-vertable="ver1">
+
+                        <thead>
+                          <tr class="row100 head">
+                            <th class="column100 column1" data-column="column1">Nombre</th>
+                            <th class="column100 column2" data-column="column2">Prioridad</th>
+                            <th class="column100 column3" data-column="column3">Dificultad</th>
+                            <th class="column100 column4" data-column="column4">Comentarios</th>
+                            <th class="column100 column5" data-column="column5">Horas Acumuladas</th>
+                            <th class="column100 column6" data-column="column6">Status</th>
+                            <th class="column100 column7" data-column="column7">As a</th>
+                            <th class="column100 column8" data-column="column8">I want</th>
+                            <th class="column100 column9" data-column="column9">So that</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr class="row100" ng-repeat="x in query">
+                            <td class="column100 column1" data-column="column1">{{ x.Nombre }}</td>
+                            <td class="column100 column2" data-column="column2">{{ x.Prioridad }}</td>
+                            <td class="column100 column3" data-column="column3">{{ x.Dificultad }}</td>
+                            <td class="column100 column4" data-column="column4">{{ x.Comentarios }}</td>
+                            <td class="column100 column5" data-column="column5">{{x['Horas acumuladas']}}</td>
+                            <td class="column100 column6" data-column="column6">{{x.Status}}</td>
+                            <td class="column100 column7" data-column="column7">{{x['As a']}}</td>
+                            <td class="column100 column8" data-column="column8">{{x['I want']}}</td>
+                            <td class="column100 column9" data-column="column9">{{x['So that']}}</td>
+                          </tr>
+                        </tbody>
+
+                      </table>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <div ng-show = 'scrum==1'>
+              <h2>{{titulo}}</h2>
+
+            <!-- <button type="button" style="float:right;margin-bottom: 10px;" class="btn btn-info add" ng-click="addStory()"><i class="fas fa-plus-circle fa-3x"></i> -->
+
+              </button>
+              <div class="limiter">
+                <div class="container-table100">
+                  <div class="wrap-table100">
+                    <div class="table100 ver1 m-b-110">
+
+                      <form  id="empform" ng-submit="submitStory()">
+
+                        <table id="mytable" class="table table-bordered">
+
+                          <thead>
+                            <tr class="row100 head">
+                              <th class="column100" data-column="column1">Nombre</th>
+                              <th class="column100 column2" data-column="column2">Prioridad</th>
+                              <th class="column100 column3" data-column="column3">Dificultad</th>
+                              <th class="column100 column4" data-column="column4">Comentarios</th>
+                              <th class="column100 column5" data-column="column5">Horas Acumuladas</th>
+                              <th class="column100 column6" data-column="column6">Status</th>
+                              <th class="column100 column7" data-column="column7">As a</th>
+                              <th class="column100 column8" data-column="column8">I want</th>
+                              <th class="column100 column9" data-column="column9">So that</th>
+                              <th class="column100 column10" data-column="column9">Edit / Delete</th>
+
+                            </tr>
+                          </thead>
+
+                          <tbody>
+
+                            <tr ng-repeat="story in Stories">
+                              <td>
+                                <input  name="nombre{{index}}"   ng-model= "story.Nombre" ng-disabled="!enabledEdit[{{$index}}]"/>
+
+                              </td>
+                              <td>
+                                <select name="prioridad{{$index}}" ng-model="story.Prioridad"   ng-disabled="!enabledEdit[{{$index}}]">
+                                  <option value="Alta">Alta</option>
+                                  <option value="Media">Media</option>
+                                  <option value="Baja">Baja</option>
+                                  <option value="Unknown">Unknown</option>
+                                  <option value="{{story.Prioridad}}" selected>{{story.Prioridad}}</option>
+                                </select>
+                              </td>
+                              <td>
+                                <select name="dificultad{{$index}}" ng-model="story.Dificultad"   ng-disabled="!enabledEdit[{{$index}}]">
+                                  <option value="10">10</option>
+                                  <option value="5">5</option>
+                                  <option value="1">1</option>
+                                  <option value="-1">-1</option>
+                                  <option value="{{story.Dificultad}}" selected>{{story.Dificultad}}</option>
+                                </select>
+                              </td>
+                              <td class = "td-us">
+                                <input name="comentarios{{$index}}" ng-model="story.Comentarios"  ng-disabled="!enabledEdit[{{$index}}]" />
+
+
+                              </td>
+                              <td class = "td-us">
+                                <input name="horas{{$index}}" ng-model="story['Horas acumuladas']"  ng-disabled="!enabledEdit[{{$index}}]" />
+
+                              </td>
+                              <td>
+                                <select name="status-sp{{$index}}" ng-model="story.Status"   ng-disabled="!enabledEdit[{{$index}}]">
+                                  <option value="No iniciada">No iniciada</option>
+                                  <option value="En curso">En curso</option>
+                                  <option value="Pendiente de validacion">Pendiente de validacion</option>
+                                  <option value="Terminada">Terminada</option>
+                                  <option value="Suspendida">Suspendida</option>
+                                  <option value="{{story.Status}}" selected>{{story.Status}}</option>
+                                </select>
+                              </td>
+                              <td>
+                                <input name="as{{$index}}" ng-model="story['As a']"  ng-disabled="!enabledEdit[{{$index}}]" />
+
+                              </td>
+                              <td>
+                                <input name="want{{$index}}" ng-model="story['I want']"  ng-disabled="!enabledEdit[{{$index}}]" />
+
+                              </td>
+                              <td>
+                                <input name="so{{$index}}" ng-model="story['So that']"  ng-disabled="!enabledEdit[{{$index}}]" />
+
+                              </td>
+                              <td >
+                                <div class="buttons">
+                                  <button class="btn btn-primary edit"  onclick="this.disabled=true" ng-click="editStory($index)"><i class="fas fa-pen-square"></i></button>
+                                  <button class="btn btn-danger delete" ng-disabled = "story.Status == 'Terminada' || story.Status == 'Pendiente de validacion' || story.Status == 'En desarrollo' " ng-click="deleteStory($index)"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                              </td>
+                            </tr>
+
+                          </tbody>
+
+                        </table>
+                        <button type="button" class="btn btn-info add" ng-click="addStory()"><i class="fas fa-plus-circle fa-3x"></i></button>
+
+                        <input type="submit" class="btn btn-primary submit" value="Save Changes" />
+                      </form>
+
+                      <div class="clearfix"></div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+            <div ng-show = 'sprint==1'>
+              <h2>{{titulo}}</h2>
+
+            <!-- <button type="button" style="float:right;margin-bottom: 10px;" class="btn btn-info add" ng-click="addStory()"><i class="fas fa-plus-circle fa-3x"></i> -->
+
+              </button>
+              <div class="limiter">
+                <div class="container-table100">
+                  <div class="wrap-table100">
+                    <div class="table100 ver1 m-b-110">
+
+                      <form  id="empform" ng-submit="submitSprint()">
+
+                        <table id="mytable" class="table table-bordered">
+
+                          <thead>
+                            <tr class="row100 head">
+                              <th class="column100" data-column="column1">Fecha inicio</th>
+                              <th class="column100 column2" data-column="column2">Fecha fin</th>
+                              <th class="column100 column3" data-column="column3">Nombre</th>
+                              <th class="column100 column4" data-column="column4">Status</th>
+                              <th class="column100 column5" data-column="column5">Review</th>
+                              <th class="column100 column6" data-column="column5">Edit / Delete</th>
+
+                            </tr>
+                          </thead>
+
+                          <tbody>
+
+                            <tr ng-repeat="sprint in Sprints">
+                              <td class = "td-sprint">
+                                <input  name="fechainico{{index}}"  ng-model= "sprint['Fecha inicio']" onfocus="(this.type='date')" ng-disabled="!enabledEditSprint[{{$index}}]"/>
+                              </td>
+
+                              <td class = "td-sprint">
+                                <input  name="fechafin{{$index}}" ng-model="sprint['Fecha fin']" onfocus="(this.type='date')" ng-disabled="!enabledEditSprint[{{$index}}]" />
+                              </td>
+                              <td class = "td-sprint">
+                                <input name="nombre-sp{{$index}}" ng-model="sprint.Nombre"  ng-disabled="!enabledEditSprint[{{$index}}]" />
+                              </td>
+
+                              <td class = "td-sprint">
+                                <select name="status-sp{{$index}}" ng-model="sprint.Status"   ng-disabled="!enabledEditSprint[{{$index}}]">
+                                  <option value="Terminado">Terminado</option>
+                                  <option value="Activo">Activo</option>
+                                  <option value="{{sprint.Status}}" selected>{{sprint.Status}}</option>
+                                </select>
+                              </td>
+
+                              <td class = "td-sprint">
+                                <input name="review-sp{{$index}}" ng-model="sprint.Review"  ng-disabled="!enabledEditSprint[{{$index}}]" />
+                              </td>
+
+                              <td class = "td-sprint">
+                                <div class="buttons sprint">
+                                  <button class="btn btn-primary edit"  onclick="this.disabled=true" ng-click="editSprint($index)"><i class="fas fa-pen-square"></i></button>
+                                  <button class="btn btn-danger delete" ng-disabled = "sprint.Status == 'Terminada' || sprint.Status == 'Pendiente de validacion' || sprint.Status == 'En desarrollo' " ng-click="deleteSprint($index)"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                              </td>
+                            </tr>
+
+                          </tbody>
+
+                        </table>
+                        <button type="button" class="btn btn-info add" ng-click="addSprint()"><i class="fas fa-plus-circle fa-3x"></i></button>
+
+                        <input type="submit" class="btn btn-primary submit" value="Save Changes" />
+                      </form>
+
+                      <div class="clearfix"></div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+            <div ng-show = 'us_sp==1'>
+              <h2>{{titulo}}</h2>
+
+            <!-- <button type="button" style="float:right;margin-bottom: 10px;" class="btn btn-info add" ng-click="addStory()"><i class="fas fa-plus-circle fa-3x"></i> -->
+
+              </button>
+              <div class="limiter">
+                <div class="container-table100">
+                  <div class="wrap-table100">
+                    <div class="table100 ver1 m-b-110">
+
+                      <form  id="empform" ng-submit="submitDevelop()">
+
+                        <table id="mytable" class="table table-bordered">
+
+                          <thead>
+                            <tr class="row100 head">
+                              <th class="column100" data-column="column1">Sprint</th>
+                              <th class="column100 column2" data-column="column2">Historia de Usuario</th>
+                              <th class="column100 column3" data-column="column3">Edit / Delete</th>
+
+                            </tr>
+                          </thead>
+
+                          <tbody>
+
+                            <tr ng-repeat="data in develop">
+
+                              <td class = "td-develop">
+
+                                <select name="idSp{{$index}}" ng-model="data.NombreSp"   ng-disabled="!enabledEditDevelop[{{$index}}]">
+                                  <option value="{{data.NombreSp}}" selected>{{data.NombreSp}}</option>
+                                  <option ng-repeat="sprint in Sprints" value="{{sprint.Nombre}}">{{sprint.Nombre}}</option>
+                                </select>
+
+                              </td>
+
+                              <td class = "td-develop">
+                                <select name="idUs{{$index}}" ng-model="data.NombreUs"  ng-disabled="!enabledEditDevelop[{{$index}}]">
+                                  <option value="{{data.NombreUs}}" selected>{{data.NombreUs}}</option>
+                                  <option ng-repeat="story in Stories" value="{{story.Nombre}}">{{story.Nombre}}</option>
+                                </select>
+                              </td>
+
+                              <td class = "td-develop">
+                                <div class="buttons developer">
+                                  <button class="btn btn-primary edit"  onclick="this.disabled=true" ng-click="editDevelop($index)"><i class="fas fa-pen-square"></i></button>
+                                  <button class="btn btn-danger delete" ng-click="deleteDevelop($index)"><i class="fas fa-trash-alt"></i></button>
+                                </div>
+                              </td>
+
+                            </tr>
+
+                          </tbody>
+
+                        </table>
+                        <button type="button" class="btn btn-info add" ng-click="addDevelop()"><i class="fas fa-plus-circle fa-3x"></i></button>
+
+                        <input type="submit" class="btn btn-primary submit" value="Save Changes" />
+                      </form>
+
+                      <div class="clearfix"></div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+
+
+      <!-- /. WRAPPER  -->
+      <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+      <!-- JQUERY SCRIPTS -->
+      <script src="assets/js/jquery-1.10.2.js"></script>
       <!-- BOOTSTRAP SCRIPTS -->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <!-- METISMENU SCRIPTS -->
-    <script src="assets/js/jquery.metisMenu.js"></script>
+      <script src="assets/js/bootstrap.min.js"></script>
+      <!-- METISMENU SCRIPTS -->
+      <script src="assets/js/jquery.metisMenu.js"></script>
       <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
+      <script src="assets/js/custom.js"></script>
 
 
-</body>
-</html>
+      <script src="assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+      <script src="assets/js/main.js"></script>
+
+
+    </body>
+    </html>
