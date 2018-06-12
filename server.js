@@ -698,46 +698,6 @@ app.post("/post/update-user", function(req,res){
 
 });
 
-
-
-/*
-app.get("/get/sprint",function(req,res){
-query('select * from team_member',function(result,err){
-if(err)console.log(err)
-res.json(result);
-res.end();
-});
-});
-var i = 15;
-app.get("/post",function(req,res){
-var quer = {
-id_tm:i+1,
-Nombre:'Eduardo',
-Rol:'ScrumMaster',
-Nick:'Edu',
-password:'12345',
-"e-mail":'edu@gmail.com'
-};
-var sql = 'insert into team_member set' + mysql.escape(quer);
-query(sql,function(result,err){
-if(err)console.log(err)
-i++;
-res.redirect("/get");
-res.end();
-})
-});
-
-app.get("/delete",function(req,res){
-var sql = 'delete from team_member where id_tm = ' + i;
-query(sql,function(result,err){
-if(err)console.log(err)
-i--;
-res.redirect("/get");
-res.end();
-})
-});
-*/
-
 connection.connect((err, res) => {
   if (err){
     return console.log(`Error al conectar a la base de datos: ${err}`)
