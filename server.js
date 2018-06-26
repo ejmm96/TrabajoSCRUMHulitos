@@ -43,6 +43,7 @@ app.post("/post/register", function(req,res){
 
     if (result) return res.status(200).send({message: 'Usuario registrado con exito'})
 
+      
     res.redirect("/");
     res.end();
   })
@@ -60,6 +61,10 @@ app.post("/get/login", function(req,res){
     if (result) {
       return res.status(200).send({message: 'Cuenta valida'})
       console.log("Cuenta valida");
+    }
+      else {
+      return res.status(404).send({message: 'No se han encontrado historias completadas'})
+      console.log("No se han encontrado historias completadas");
     }
     res.redirect("/");
     res.end();

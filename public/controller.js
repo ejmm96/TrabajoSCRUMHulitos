@@ -45,6 +45,9 @@ angular.module('scrumApp', [])
 
       };
 
+    
+
+    
 
       //TABLAS EDITABLES PERFIL
 
