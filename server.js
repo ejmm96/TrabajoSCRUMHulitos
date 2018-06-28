@@ -42,7 +42,6 @@ app.post("/post/register", function(req,res){
     //if(err)console.log(err)
 
     if (result) return res.status(200).send({message: 'Usuario registrado con exito'})
-
       
     res.redirect("/");
     res.end();
@@ -58,9 +57,9 @@ app.post("/get/login", function(req,res){
   query(sql,function(result,err){
     if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
     //if(err) console.log(err)
-    if (result) {
-      return res.status(200).send({message: 'Cuenta valida'})
-      console.log("Cuenta valida");
+    if (result!=0) {
+      return res.status(200).send({message: 'Cuenta valida', result})
+      console.log("Cuenta valida");  
     }
       else {
       return res.status(404).send({message: 'No se han encontrado historias completadas'})
@@ -71,9 +70,11 @@ app.post("/get/login", function(req,res){
   })
 });
 
-app.get("/get/user-data", function(req,res){
+app.post("/get/user-data", function(req,res){
   console.log('Obteniendo Datos del Usuario...');
-  var sql = 'select * from team_member where Nombre = "Alex"'; //Aqui habra que recoger el nombre de una cookie
+  console.log(req.body);
+
+  var sql = 'select * from team_member  where nick = "' + req.body.nick + '";' //Aqui habra que recoger el nombre de una cookie
   console.log(sql);
   query(sql,function(result,err){
     if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
