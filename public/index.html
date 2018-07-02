@@ -16,7 +16,7 @@
         <!-- GOOGLE FONTS-->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/html' />
         <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
-        
+
         <!-- TABLAS-->
         <link rel="stylesheet" type="text/css" href="assets/css/util.css">
         <link rel="stylesheet" type="text/css" href="assets/css/reg_log.css">
@@ -26,28 +26,28 @@
         <script src="assets/libs/js/angular-route.min.js"></script>
         <script src="assets/libs/js/angular-touch.min.js"></script>
 
-        
-        
+
+
           <!-- BOOTSTRAP -->
-        
+
 
         <script src="controller.js"></script>
-        
-        
-        
+
+
+
         <script src="assets/js/jquery-3.1.1.min.js"></script>
         <script src="assets/js/main.js"></script>
 
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
         <script  src="assets/js/reg_log.js"></script>
 
-        
+
 </head>
   <body ng-app = "scrumApp" ng-controller = "scrum-ctrl">
-    
-      
-      
-      
+
+
+
+
       <div class="contenedor-formularios">
         <!-- Links de los formularios -->
         <ul class="contenedor-tabs">
@@ -75,7 +75,6 @@
                         </label>
                         <input type="password" name="password_login" ng-model = "password_login" required>
                     </div>
-                    <p class="forgot"><a href="#">Se te olvidó la contraseña?</a></p>
                     <input type="submit" class="button button-block" value="Iniciar Sesión">
                 </form>
             </div>
@@ -92,15 +91,11 @@
                             <input type="text" name = "name" ng-model="name" required >
                         </div>
 
-                        <div class="contenedor-input">
-                       
-                                 
-                          
-                        <select ng-model = "rol" name="rol" required>
-                        <option selected>Developer</option>
-                        <option>Scrum Master</option>
-                    </select>                    
-                    
+                    <div class="contenedor-input">
+                        <select class = "desplegable-registro" ng-model = "rol" name="rol" required>
+                        <option selected="selected" value = "Developer" >Developer</option>
+                        <option value = "Scrum Master">Scrum Master</option>
+                        </select>
                     </div>
                     </div>
                     <div class="contenedor-input">
@@ -135,16 +130,7 @@
         </div>
     </div>
 
-   
+
 
 </body>
 </html>
-
-  
-
-      
-      
-      
-      
-      
-      

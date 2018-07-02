@@ -168,9 +168,17 @@ angular.module('scrumApp', [])
         console.log("Estas logeado");
         console.log(response);
         var nick = response.data.result[0].Nick;
+        var rol = response.data.result[0].Rol;
         document.cookie = 'nick='+nick+'; max-age=3600; path=/'
         console.log(document.cookie)
-        location.href ="/main-scrum.html";
+
+        if(rol == 'Scrum Master'){
+          location.href ="/main-scrum.html";
+
+        }else{
+          location.href ="/main-dev.html";
+
+        }
 
     // this callback will be called asynchronously
     // when the response is available

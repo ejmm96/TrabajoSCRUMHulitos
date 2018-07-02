@@ -54,11 +54,11 @@ a:hover {
   transition: .5s ease;
 }
 .contenedor-tabs li a:hover {
-  background: #179b77;
+  background: #d96730;
   color: #fff;
 }
 .contenedor-tabs .active a {
-  background: #1ab188;
+  background: #d96730;
   color: #fff;
 }
 
@@ -85,7 +85,7 @@ label {
 }
 label .req {
   margin: 2px;
-  color: #1ab188;
+  color: #d96730;
 }
 
 label.active {
@@ -120,7 +120,7 @@ input {
 }
 input:focus {
   outline: none;
-  border-color: #1ab188;
+  border-color: #d96730;
 }
 
 .contenedor-input {
@@ -149,24 +149,18 @@ input:focus {
   cursor: pointer;
   padding: 15px 0;
   font-size: 2rem;
-  background: #1ab188;
+  background: #d96730;
   color: #fff;
   transition: all .5s ease;
   -webkit-appearance: none;
 }
 .button:hover, .button:focus {
-  background: #179b77;
+  background: #9c6717;
 }
 
 .button-block {
   display: block;
   width: 100%;
-}
-
-.forgot {
-  margin-top: -20px;
-  text-align: right;
-  margin-bottom: 20px;
 }
 
 @media screen and (max-width: 500px) {
@@ -181,4 +175,12 @@ input:focus {
   .contenedor-tabs li a {
     width: 100%;
   }
+}
+
+.desplegable-registro{
+  background-color: rgba(19, 35, 47, 0.9);
+color: white;
+font-size: 20px;
+width: 95%;
+height: 42px;
 }

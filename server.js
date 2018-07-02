@@ -53,7 +53,7 @@ app.post("/post/register", function(req,res){
 app.post("/get/login", function(req,res){
   console.log('Comprobando usuario en el sistema...');
   console.log(req.body)
-  var sql = 'select Nick, password from team_member where nick = "' + req.body.nick_login + '" and password= "' + req.body.password_login +'";';
+  var sql = 'select Nick, password, Rol from team_member where nick = "' + req.body.nick_login + '" and password= "' + req.body.password_login +'";';
   console.log(sql);
   query(sql,function(result,err){
     if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
