@@ -43,7 +43,7 @@ app.post("/post/register", function(req,res){
 
     if (result) return res.status(200).send({message: 'Usuario registrado con exito'})
 
-    res.redirect("/");
+    res.redirect("/main-srum");
     res.end();
   })
 });
@@ -57,18 +57,23 @@ app.post("/get/login", function(req,res){
   query(sql,function(result,err){
     if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
     //if(err) console.log(err)
-    if (result) {
-      return res.status(200).send({message: 'Cuenta valida'})
+    if (result.length!=0) {
+
       console.log("Cuenta valida");
+      console.log(result);
+      return res.status(200).send({message: 'Cuenta valida', result})
+    }
+    else {
+      return res.status(404).send({message: 'No se ha encontrado usuario en la base de datos'})
     }
     res.redirect("/");
     res.end();
   })
 });
 
-app.get("/get/user-data", function(req,res){
+app.post("/get/user-data", function(req,res){
   console.log('Obteniendo Datos del Usuario...');
-  var sql = 'select * from team_member where Nombre = "Alex"'; //Aqui habra que recoger el nombre de una cookie
+  var sql = 'select * from team_member where Nombre = "' + req.body.nombre +'"'; //Aqui habra que recoger el nombre de una cookie
   console.log(sql);
   query(sql,function(result,err){
     if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
@@ -162,7 +167,7 @@ app.get('/get/sprint-multiple-Stories', function(req,res){
 
 app.post('/get/assigned-Stories', function(req,res){
   console.log('Obteniendo historias asignadas al usuario en cuestión...');
-  var sql = 'SELECT stored_user_story.* FROM stored_user_story INNER JOIN team_member WHERE stored_user_story.Developer = team_member.id_tm AND team_member.Nombre = "' + req.body.nombre +'";';
+  var sql = 'SELECT DISTINCT stored_user_story.* FROM stored_user_story INNER JOIN team_member WHERE stored_user_story.Developer = team_member.id_tm AND team_member.Nombre = "' + req.body.nombre +'" GROUP BY Nombre;';
 
   console.log(sql);
   query(sql,function(result,err){
@@ -697,6 +702,96 @@ app.post("/post/update-user", function(req,res){
   res.end();
 
 });
+
+app.post("/post/choose-stories", function(req,res){
+  console.log('Eligiendo historias de usuario...');
+  console.log(req.body);
+  for (var i = 0; i < req.body.length; i++) {
+
+    var quer = {
+      id_tm: 25                 //esto irá con COOKIES!!
+    };
+
+    var sql = 'UPDATE develop SET ' + mysql.escape(quer) + ' WHERE `id_us` = "' + req.body[i].id_us + '"';
+    console.log(sql);
+    query(sql,function(result,err){
+      if(err)console.log(err)
+      if(result)console.log(result)
+    });
+
+    var quer2 = {
+      Developer:25,           //esto irá con COOKIES!!
+    }
+
+    var sql2 = 'UPDATE stored_user_story SET ' + mysql.escape(quer2) + ' WHERE `Nombre` = "' + req.body[i].Nombre + '"';
+    console.log(sql2);
+    query(sql2,function(result,err){
+      if(err)console.log(err)
+      if(result)console.log(result)
+    });
+
+  }
+
+  if (i = req.body.length) return res.status(200).send({message: 'Historias escogidas con exito'})
+  else return res.status(500).send({message: 'Error, no se han podido escoger las historias'})
+
+  res.redirect("/");
+  res.end();
+
+});
+
+
+
+
+app.post("/post/my-stories", function(req,res){
+  console.log('Actualizando historias de usuario...');
+  console.log(req.body.length);
+  console.log(req.body);
+
+  for (var i = 0; i < req.body.length; i++) {
+
+    var quer = {
+      Status: req.body[i].Status,
+    };
+
+    var sql = 'UPDATE user_story SET ' + mysql.escape(quer) + ' WHERE `Nombre` = "' + req.body[i].Nombre + '"';
+    console.log(sql);
+    query(sql,function(result,err){
+      if(err)console.log(err)
+      if(result)console.log(result)
+    });
+
+
+
+    var sql2 = 'UPDATE stored_user_story SET ' + mysql.escape(quer) + ' WHERE `Nombre` = "' + req.body[i].Nombre + '"';
+    console.log(sql2);
+    query(sql2,function(result,err){
+      if(err)console.log(err)
+      if(result)console.log(result)
+    });
+
+  }
+
+  if (i = req.body.length) return res.status(200).send({message: 'Historias escogidas con exito'})
+  else return res.status(500).send({message: 'Error, no se han podido escoger las historias'})
+
+  res.redirect("/");
+  res.end();
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 connection.connect((err, res) => {
   if (err){

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DEVELOPER</title>
+  <!-- BOOTSTRAP STYLES-->
+  <link href="assets/css/bootstrap.css" rel="stylesheet" type='text/css' />
+  <!-- FONTAWESOME STYLES-->
+  <link href="assets/css/fontawesome-all.css" rel="stylesheet" type='text/css' />
+  <!-- CUSTOM STYLES-->
+  <link href="assets/css/custom.css" rel="stylesheet" type='text/css' />
+  <!-- GOOGLE FONTS-->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/html' />
+
+  <!-- TABLAS-->
+  <link rel="stylesheet" type="text/css" href="assets/css/util.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+
+  <!-- ANGULAR-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script><script src="assets/libs/js/angular-animate.min.js"></script>
+    <script src="assets/libs/js/angular-route.min.js"></script>
+    <script src="assets/libs/js/angular-touch.min.js"></script>
+    <script src="assets/libs/js/angular.min.js"></script>
+
+
+  <script src="controller.js"></script>
+
+</head>
+<body ng-app="scrumApp" ng-controller = "scrum-ctrl" data-ng-init="userData()">
+  <div id="wrapper">
+    <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand-dev" href="main-dev.html">DEVELOPER</a>
+      </div>
+      <div class = "bienv">Welcome DEVELOPER!
+        <a href="" ng-click ="editPerfil()" class="btn btn-danger round-btn-adjust">Editar Perfil</a></div>
+      </nav>
+      <!-- /. NAV TOP  -->
+      <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+          <ul class="nav" id="main-menu">
+            <li class="text-center">
+              <img src="assets/img/user.png" class="user-image img-responsive"/>
+            </li>
+            <li>
+              <a href="" ng-click="getStories()" ng-class="{'active-menu-dev': activo === 1}" ><i class="far fa-calendar-check fa-3x"></i>  Historias Completadas</a>
+            </li>
+            <li>
+              <a href="" ng-click="getSprint()" ng-class="{'active-menu-dev': activo === 2}"><i class="fas fa-spinner fa-3x"></i>  Historias del Sprint Activo</a>
+            </li>
+            <li>
+              <a  href="" ng-click="getMultipleSprint()" ng-class="{'active-menu-dev': activo === 3}"><i class="fas fa-sitemap fa-3x"></i>  Historias en múltiples Sprints</a>
+            </li>
+            <li  >
+              <a   href="" ng-click="activeAssignedStories()" ng-class="{'active-menu-dev': activo === 4}"><i class="fas fa-user-tag fa-3x"></i>  Historias asignadas <span class="fa arrow"></a>
+                <ul class="nav nav-second-level">
+                  <li>
+                    <form>
+                      <input type="text" ng-model="nombre" style=" width: 100%; height: 120%; padding: 15px;" placeholder="Nombre desarrollador...">
+                      <button style="color: #ffffff;text-align: center;width:  100%;padding: 6px;background-color: #36314a;" ng-click="getAssignedStories()">BUSCAR</button>
+                    </form>
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <a href="" ng-click="activeScrumOptions()" ng-class="{'active-menu-dev': activo === 5}"><i class="fas fa-cog fa-3x"></i>  DEVELOPER <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                  <li>
+                    <a href="" ng-click="chooseStories()">Elegir Historias de Usuario</a>
+                  </li>
+
+                  <li>
+                    <a href="" ng-click="myStories()">Mis Historias</a>
+                  </li>
+
+                </ul>
+
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+    </nav>
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper" >
+      <div id="page-inner">
+        <div class="row">
+          <div class="col-md-12">
+
+            <div ng-show = 'perfil==1'>
+              <h2>EDITAR PERFIL</h2>
+
+            </button>
+            <div class="limiter">
+              <div class="container-table100">
+                <div class="wrap-table100">
+                  <div class="table100 ver1 m-b-110">
+
+                    <form  id="empform" ng-submit="submitUser()">
+
+                      <table id="mytable" class="table table-bordered">
+
+                        <thead>
+                          <tr class="row100 head">
+                            <th class="column100" data-column="column1">Nombre</th>
+                            <th class="column100 column2" data-column="column2">Nick</th>
+                            <th class="column100 column3" data-column="column3">Password</th>
+                            <th class="column100 column4" data-column="column4">E-mail</th>
+                            <th class="column100 column5" data-column="column5">Edit / Delete</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+
+                          <tr ng-repeat="user in profile">
+                            <td class = "td-user">
+                              <input  name="nombre{{index}}"   ng-model= "user.Nombre" ng-disabled="!enabledEditUser[{{$index}}]"/>
+                            </td>
+
+                            <td class = "td-user">
+                              <input  name="nick{{index}}"   ng-model= "user.Nick" ng-disabled="!enabledEditUser[{{$index}}]"/>
+                            </td>
+
+                            <td class = "td-user">
+                              <input  name="password{{index}}"   ng-model= "user.password" ng-disabled="!enabledEditUser[{{$index}}]"/>
+                            </td>
+
+                            <td class = "td-user">
+                              <input  name="email{{index}}"   ng-model= "user['e-mail']" ng-disabled="!enabledEditUser[{{$index}}]"/>
+                            </td>
+
+                            <td class = "td-user">
+                              <div class="buttons profile">
+                                <button class="btn btn-primary edit"  onclick="this.disabled=true" ng-click="editUser($index)"><i class="fas fa-pen-square"></i></button>
+                              </div>
+                            </td>
+
+                          </tr>
+
+                        </tbody>
+
+                      </table>
+                      <input type="submit" class="btn btn-primary submit" value="Save Changes" />
+                    </form>
+
+                    <div class="clearfix"></div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+          <div ng-show = 'comunes==1'>
+            <h2>{{titulo}}</h2>
+
+            <div class="limiter">
+              <div class="container-table100">
+                <div class="wrap-table100">
+                  <div class="table100 ver1 m-b-110">
+                    <table data-vertable="ver1">
+
+                      <thead>
+                        <tr class="row100 head">
+                          <th class="column100 column1" data-column="column1">Nombre</th>
+                          <th class="column100 column2" data-column="column2">Prioridad</th>
+                          <th class="column100 column3" data-column="column3">Dificultad</th>
+                          <th class="column100 column4" data-column="column4">Comentarios</th>
+                          <th class="column100 column5" data-column="column5">Horas Acumuladas</th>
+                          <th class="column100 column6" data-column="column6">Status</th>
+                          <th class="column100 column7" data-column="column7">As a</th>
+                          <th class="column100 column8" data-column="column8">I want</th>
+                          <th class="column100 column9" data-column="column9">So that</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <tr class="row100" ng-repeat="x in query">
+                          <td class="column100 column1" data-column="column1">{{ x.Nombre }}</td>
+                          <td class="column100 column2" data-column="column2">{{ x.Prioridad }}</td>
+                          <td class="column100 column3" data-column="column3">{{ x.Dificultad }}</td>
+                          <td class="column100 column4" data-column="column4">{{ x.Comentarios }}</td>
+                          <td class="column100 column5" data-column="column5">{{x['Horas acumuladas']}}</td>
+                          <td class="column100 column6" data-column="column6">{{x.Status}}</td>
+                          <td class="column100 column7" data-column="column7">{{x['As a']}}</td>
+                          <td class="column100 column8" data-column="column8">{{x['I want']}}</td>
+                          <td class="column100 column9" data-column="column9">{{x['So that']}}</td>
+                        </tr>
+                      </tbody>
+
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+    <div ng-show = 'dev_choose_us==1'>
+      <h2>{{titulo}}</h2>
+
+    </button>
+    <div class="limiter">
+      <div class="container-table100">
+        <div class="wrap-table100">
+          <div class="table100 ver1 m-b-110">
+
+            <form  id="empform" ng-submit="submitChooseStory()">
+
+              <table id="mytable" class="table table-bordered">
+
+                <thead>
+                  <tr class="row100 head">
+                    <th class="column100" data-column="column1">Nombre</th>
+                    <th class="column100 column2" data-column="column2">Prioridad</th>
+                    <th class="column100 column3" data-column="column3">Dificultad</th>
+                    <th class="column100 column4" data-column="column4">Comentarios</th>
+                    <th class="column100 column5" data-column="column5">Horas Acumuladas</th>
+                    <th class="column100 column6" data-column="column6">Status</th>
+                    <th class="column100 column7" data-column="column7">As a</th>
+                    <th class="column100 column8" data-column="column8">I want</th>
+                    <th class="column100 column9" data-column="column9">So that</th>
+                    <th class="column100 column10" data-column="column9">Edit / Delete</th>
+
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  <tr ng-repeat="story in Stories">
+                    <td>
+                      <input  name="nombre{{index}}"   ng-model= "story.Nombre" ng-disabled="!enabledEdit[{{$index}}]"/>
+
+                    </td>
+                    <td>
+                      <select name="prioridad{{$index}}" ng-model="story.Prioridad"   ng-disabled="!enabledEdit[{{$index}}]">
+                        <option value="Alta">Alta</option>
+                        <option value="Media">Media</option>
+                        <option value="Baja">Baja</option>
+                        <option value="Unknown">Unknown</option>
+                        <option value="{{story.Prioridad}}" selected>{{story.Prioridad}}</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select name="dificultad{{$index}}" ng-model="story.Dificultad"   ng-disabled="!enabledEdit[{{$index}}]">
+                        <option value="10">10</option>
+                        <option value="5">5</option>
+                        <option value="1">1</option>
+                        <option value="-1">-1</option>
+                        <option value="{{story.Dificultad}}" selected>{{story.Dificultad}}</option>
+                      </select>
+                    </td>
+                    <td class = "td-us">
+                      <input name="comentarios{{$index}}" ng-model="story.Comentarios"  ng-disabled="!enabledEdit[{{$index}}]" />
+
+
+                    </td>
+                    <td class = "td-us">
+                      <input name="horas{{$index}}" ng-model="story['Horas acumuladas']"  ng-disabled="!enabledEdit[{{$index}}]" />
+
+                    </td>
+                    <td>
+                      <select name="status-sp{{$index}}" ng-model="story.Status"   ng-disabled="!enabledEdit[{{$index}}]">
+                        <option value="No iniciada">No iniciada</option>
+                        <option value="En curso">En curso</option>
+                        <option value="Pendiente de validacion">Pendiente de validacion</option>
+                        <option value="Terminada">Terminada</option>
+                        <option value="Suspendida">Suspendida</option>
+                        <option value="{{story.Status}}" selected>{{story.Status}}</option>
+                      </select>
+                    </td>
+                    <td>
+                      <input name="as{{$index}}" ng-model="story['As a']"  ng-disabled="!enabledEdit[{{$index}}]" />
+
+                    </td>
+                    <td>
+                      <input name="want{{$index}}" ng-model="story['I want']"  ng-disabled="!enabledEdit[{{$index}}]" />
+
+                    </td>
+                    <td>
+                      <input name="so{{$index}}" ng-model="story['So that']"  ng-disabled="!enabledEdit[{{$index}}]" />
+
+                    </td>
+                    <td >
+                      <div class="buttons">
+                        <button type="button" class="btn btn-success chooseStory" ng-disabled = "story.Status == 'Terminada' || story.Status == 'Pendiente de validacion' || story.Status == 'En desarrollo' " ng-click="chooseStory($index)"><i class="fas fa-user-plus"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+
+                </tbody>
+
+              </table>
+
+              <input type="submit" class="btn btn-primary submit" value="Elegir Historias" />
+            </form>
+
+            <div class="clearfix"></div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div ng-show = 'dev_my_us==1'>
+    <h2>{{titulo}}</h2>
+
+  </button>
+  <div class="limiter">
+    <div class="container-table100">
+      <div class="wrap-table100">
+        <div class="table100 ver1 m-b-110">
+
+          <form  id="empform" ng-submit="submitMyStories()">
+
+            <table id="mytable" class="table table-bordered">
+
+              <thead>
+                <tr class="row100 head">
+                  <th class="column100" data-column="column1">Nombre</th>
+                  <th class="column100 column2" data-column="column2">Prioridad</th>
+                  <th class="column100 column3" data-column="column3">Dificultad</th>
+                  <th class="column100 column4" data-column="column4">Comentarios</th>
+                  <th class="column100 column5" data-column="column5">Horas Acumuladas</th>
+                  <th class="column100 column6" data-column="column6">Status</th>
+                  <th class="column100 column7" data-column="column7">As a</th>
+                  <th class="column100 column8" data-column="column8">I want</th>
+                  <th class="column100 column9" data-column="column9">So that</th>
+                  <th class="column100 column10" data-column="column9">Edit / Delete</th>
+
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr ng-repeat="story in Stories">
+                  <td>
+                    <input  name="nombre{{index}}"   ng-model= "story.Nombre" ng-disabled="true"/>
+
+                  </td>
+                  <td>
+                    <select name="prioridad{{$index}}" ng-model="story.Prioridad"   ng-disabled="true">
+                      <option value="Alta">Alta</option>
+                      <option value="Media">Media</option>
+                      <option value="Baja">Baja</option>
+                      <option value="Unknown">Unknown</option>
+                      <option value="{{story.Prioridad}}" selected>{{story.Prioridad}}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select name="dificultad{{$index}}" ng-model="story.Dificultad"   ng-disabled="true">
+                      <option value="10">10</option>
+                      <option value="5">5</option>
+                      <option value="1">1</option>
+                      <option value="-1">-1</option>
+                      <option value="{{story.Dificultad}}" selected>{{story.Dificultad}}</option>
+                    </select>
+                  </td>
+                  <td class = "td-us">
+                    <input name="comentarios{{$index}}" ng-model="story.Comentarios"  ng-disabled="true" />
+
+
+                  </td>
+                  <td class = "td-us">
+                    <input name="horas{{$index}}" ng-model="story['Horas acumuladas']"  ng-disabled="true" />
+
+                  </td>
+                  <td>
+                    <select name="status-sp{{$index}}" ng-model="story.Status"   ng-disabled="!enabledEdit[{{$index}}]">
+                      <option value="No iniciada">No iniciada</option>
+                      <option value="En curso">En curso</option>
+                      <option value="Pendiente de validacion">Pendiente de validacion</option>
+                      <option value="{{story.Status}}" selected>{{story.Status}}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input name="as{{$index}}" ng-model="story['As a']"  ng-disabled="true" />
+
+                  </td>
+                  <td>
+                    <input name="want{{$index}}" ng-model="story['I want']"  ng-disabled="true" />
+
+                  </td>
+                  <td>
+                    <input name="so{{$index}}" ng-model="story['So that']"  ng-disabled="true" />
+
+                  </td>
+                  <td >
+                    <div class="buttons">
+                      <button type="button" class="btn btn-primary chooseStory" ng-disabled = "story.Status == 'Terminada' || story.Status == 'Pendiente de validacion' || story.Status == 'En desarrollo' " ng-click="chooseStory($index)"><i class="fas fa-pen-square"></i></button>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+            <input type="submit" class="btn btn-primary submit" value="Editar Historias" />
+          </form>
+
+          <div class="clearfix"></div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+</div>
+</div>
+
+
+<!-- /. WRAPPER  -->
+<!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+<!-- JQUERY SCRIPTS -->
+<script src="assets/js/jquery-1.10.2.js"></script>
+<!-- BOOTSTRAP SCRIPTS -->
+<script src="assets/js/bootstrap.min.js"></script>
+<!-- METISMENU SCRIPTS -->
+<script src="assets/js/jquery.metisMenu.js"></script>
+<!-- CUSTOM SCRIPTS -->
+<script src="assets/js/custom.js"></script>
+
+
+<script src="assets/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="assets/js/main.js"></script>
+
+
+</body>
+</html>

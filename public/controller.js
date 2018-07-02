@@ -4,27 +4,39 @@ angular.module('scrumApp', [])
 
     .controller('scrum-ctrl', function ($scope, $http) {
 
+      //array consultas
       $scope.query = [];
-      $scope.scrum = 0;
-      $scope.dev = 0;
-      $scope.us_sp = 0;
-      $scope.sprint = 0;
+
+      //Variables para ir cambiando de entre menus
       $scope.perfil = 1;
+      $scope.comunes = 0;
+      $scope.scrum_us = 0;
+      $scope.scrum_sp = 0;
+      $scope.scrum_us_sp = 0;
+      $scope.dev_choose_us = 0;
+      $scope.dev_my_us = 0;
+
+      //Funciones
 
       $scope.userData = function(){
-        //$window.location.href = '/historias-terminadas.html';
         $scope.activo = 0;
-        $scope.dev = 0;
-        $scope.us_sp = 0;
-        $scope.sprint = 0;
-        $scope.scrum = 0;
+        $scope.comunes = 0;
+        $scope.scrum_us_sp = 0;
+        $scope.scrum_sp = 0;
+        $scope.scrum_us = 0;
+        $scope.dev_choose_us = 0;
+        $scope.dev_my_us = 0;
         $scope.perfil = 1;
 
 
         console.log('Obteniendo Datos del Usuario...');
         $http({
-      method: 'GET',
-      url: '/get/user-data'
+      method: 'POST',
+      url: '/get/user-data',
+      data: {
+            nombre: 'Alex',  //aqui se pasa el nombre por una cookie
+        }
+
 
       }).then(function successCallback(response) {
 
@@ -138,6 +150,7 @@ angular.module('scrumApp', [])
     }
 
 }).then(function successCallback(response) {
+
         console.log("Estas logeado");
         console.log(response);
 
@@ -154,11 +167,13 @@ angular.module('scrumApp', [])
 $scope.getStories = function(){
   //$window.location.href = '/historias-terminadas.html';
   $scope.activo = 1;
-  $scope.dev = 1;
-  $scope.us_sp = 0;
-  $scope.sprint = 0;
-  $scope.scrum = 0;
+  $scope.comunes = 1;
+  $scope.scrum_us_sp = 0;
+  $scope.scrum_sp = 0;
+  $scope.scrum_us = 0;
   $scope.perfil = 0;
+  $scope.dev_choose_us = 0;
+  $scope.dev_my_us = 0;
 
 
   $scope.titulo = " HISTORIAS COMPLETADAS";
@@ -189,11 +204,13 @@ url: '/get/completed-Stories'
 $scope.getSprint = function(){
   //$window.location.href = '/historias-terminadas.html';
   $scope.activo = 2;
-  $scope.dev = 1;
-  $scope.us_sp = 0;
-  $scope.sprint = 0;
-  $scope.scrum = 0;
+  $scope.comunes = 1;
+  $scope.scrum_us_sp = 0;
+  $scope.scrum_sp = 0;
+  $scope.scrum_us = 0;
   $scope.perfil = 0;
+  $scope.dev_choose_us = 0;
+  $scope.dev_my_us = 0;
 
 
   $scope.titulo = "HISTORIAS DEL SPRINT ACTIVO";
@@ -224,11 +241,13 @@ url: '/get/sprint-Stories'
 $scope.getMultipleSprint = function(){
   //$window.location.href = '/historias-terminadas.html';
   $scope.activo = 3;
-  $scope.dev = 1;
-  $scope.us_sp = 0;
-  $scope.sprint = 0;
-  $scope.scrum = 0;
+  $scope.comunes = 1;
+  $scope.scrum_us_sp = 0;
+  $scope.scrum_sp = 0;
+  $scope.scrum_us = 0;
   $scope.perfil = 0;
+  $scope.dev_choose_us = 0;
+  $scope.dev_my_us = 0;
 
 
   $scope.titulo = "HISTORIAS ASIGNADAS A  MÁS DE UN SPRINT";
@@ -257,11 +276,13 @@ url: '/get/sprint-multiple-Stories'
 $scope.getAssignedStories = function(){
   //$window.location.href = '/historias-terminadas.html';
   $scope.activo = 4;
-  $scope.dev = 1;
-  $scope.us_sp = 0;
-  $scope.sprint = 0;
-  $scope.scrum = 0;
+  $scope.comunes = 1;
+  $scope.scrum_us_sp = 0;
+  $scope.scrum_sp = 0;
+  $scope.scrum_us = 0;
   $scope.perfil = 0;
+  $scope.dev_choose_us = 0;
+  $scope.dev_my_us = 0;
 
 
   $scope.titulo = "HISTORIAS ASIGNADAS A UN DESARROLLADOR";
@@ -294,11 +315,13 @@ data: {
 $scope.activeAssignedStories = function(){
   //$window.location.href = '/historias-terminadas.html';
   $scope.activo = 4;
-  $scope.dev = 0;
-  $scope.us_sp = 0;
-  $scope.sprint = 0;
-  $scope.scrum = 0;
+  $scope.comunes = 0;
+  $scope.scrum_us_sp = 0;
+  $scope.scrum_sp = 0;
+  $scope.scrum_us = 0;
   $scope.perfil = 0;
+  $scope.dev_choose_us = 0;
+  $scope.dev_my_us = 0;
 
 
 
@@ -307,23 +330,27 @@ $scope.activeAssignedStories = function(){
 $scope.activeScrumOptions = function(){
   //$window.location.href = '/historias-terminadas.html';
   $scope.activo = 5;
-  $scope.dev = 0;
+  $scope.comunes = 0;
 
-  $scope.us_sp = 0;
-  $scope.sprint = 0;
-  $scope.scrum = 0;
+  $scope.scrum_us_sp = 0;
+  $scope.scrum_sp = 0;
+  $scope.scrum_us = 0;
   $scope.perfil = 0;
+  $scope.dev_choose_us = 0;
+  $scope.dev_my_us = 0;
 
 };
 
 $scope.editPerfil = function(){
   //$window.location.href = '/historias-terminadas.html';
   $scope.activo = 0;
-  $scope.dev = 0;
-  $scope.us_sp = 0;
-  $scope.sprint = 0;
-  $scope.scrum = 0;
+  $scope.comunes = 0;
+  $scope.scrum_us_sp = 0;
+  $scope.scrum_sp = 0;
+  $scope.scrum_us = 0;
   $scope.perfil = 1;
+  $scope.dev_choose_us = 0;
+  $scope.dev_my_us = 0;
 
 };
 
@@ -332,11 +359,13 @@ $scope.editPerfil = function(){
 $scope.editStories = function(){
   //$window.location.href = '/historias-terminadas.html';
 
-  $scope.scrum = 1;
-  $scope.dev = 0;
-  $scope.us_sp = 0;
-  $scope.sprint = 0;
+  $scope.scrum_us = 1;
+  $scope.comunes = 0;
+  $scope.scrum_us_sp = 0;
+  $scope.scrum_sp = 0;
   $scope.perfil = 0;
+  $scope.dev_choose_us = 0;
+  $scope.dev_my_us = 0;
 
 
 
@@ -488,11 +517,13 @@ location.reload();
 
   $scope.getPendingStories = function(){
     //$window.location.href = '/historias-terminadas.html';
-    $scope.scrum = 0;
-    $scope.dev = 1;
-    $scope.us_sp = 0;
-    $scope.sprint = 0;
+    $scope.scrum_us = 0;
+    $scope.comunes = 1;
+    $scope.scrum_us_sp = 0;
+    $scope.scrum_sp = 0;
     $scope.perfil = 0;
+    $scope.dev_choose_us = 0;
+    $scope.dev_my_us = 0;
 
 
     $scope.titulo = "HISTORIAS PENDIENTES";
@@ -522,10 +553,13 @@ location.reload();
 
   $scope.editSprints = function(){
 
-    $scope.scrum = 0;
-    $scope.dev = 0;
-    $scope.us_sp = 0;
-    $scope.sprint = 1;
+    $scope.scrum_us = 0;
+    $scope.comunes = 0;
+    $scope.scrum_us_sp = 0;
+    $scope.scrum_sp = 1;
+    $scope.perfil = 0;
+    $scope.dev_choose_us = 0;
+    $scope.dev_my_us = 0;
 
     $scope.titulo = " SPRINTS";
 
@@ -539,7 +573,7 @@ location.reload();
 
 
         $scope.query = response.data.result;
-        $scope.Sprints = angular.copy( $scope.query);
+        $scope.scrum_sps = angular.copy( $scope.query);
 
         console.log("Sprints obtenidos con exito.");
         console.log(response.data.result);
@@ -569,14 +603,14 @@ location.reload();
 
       var sp ={ id_sp:"",'Fecha inicio':"",'Fecha fin':"",
                      Nombre:"",'Horas acumuladas':"",Status:"", Review:"-1", disableEdit:false};
-    $scope.Sprints.push(sp);
+    $scope.scrum_sps.push(sp);
     $scope.newSprint.push(sp);
 
-     $scope.enabledEditSprint[$scope.Sprints.length-1]=true;
+     $scope.enabledEditSprint[$scope.scrum_sps.length-1]=true;
   }
   $scope.editSprint = function(index){
     var original = $scope.query[index];
-    var updated = $scope.Sprints[index];
+    var updated = $scope.scrum_sps[index];
     $scope.updSprint.push(updated);
     $scope.updSprint.push(original);
 
@@ -587,9 +621,9 @@ location.reload();
     $scope.enabledEditSprint[index] = !$scope.enabledEditSprint[index];
   }
   $scope.deleteSprint = function(index) {
-    $scope.delSprint = $scope.Sprints[index];
+    $scope.delSprint = $scope.scrum_sps[index];
     console.log($scope.delSprint);
-      $scope.Sprints.splice(index,1);
+      $scope.scrum_sps.splice(index,1);
 
       $http({
     method: 'POST',
@@ -671,7 +705,7 @@ location.reload();
   //FIN TABLAS EDITABLES SPRINT
 
 
-    $scope.sprintStories = function(){
+    $scope.scrum_spStories = function(){
 
 
 
@@ -682,11 +716,13 @@ location.reload();
       $scope.editStories(); //todas las historias
       $scope.titulo = "AÑADIR HISTORIAS AL SPRINT";
 
-      $scope.us_sp = 1;
-      $scope.scrum = 0;
-      $scope.dev = 0;
-      $scope.sprint = 0;
+      $scope.scrum_us_sp = 1;
+      $scope.scrum_us = 0;
+      $scope.comunes = 0;
+      $scope.scrum_sp = 0;
       $scope.perfil = 0;
+      $scope.dev_choose_us = 0;
+      $scope.dev_my_us = 0;
 
 
       console.log('Obteniendo Sprints...');
@@ -698,7 +734,7 @@ location.reload();
 
 
           $scope.query = response.data.result;
-          $scope.develop = angular.copy( $scope.query);
+          $scope.comuneselop = angular.copy( $scope.query);
 
           console.log("Sprints obtenidos con exito.");
           console.log(response.data.result);
@@ -727,14 +763,14 @@ location.reload();
         $scope.addDevelop = function(){
 
           var us_sp ={ NombreSp:"", NombreUs:"",disableEdit:false};
-        $scope.develop.push(us_sp);
+        $scope.comuneselop.push(us_sp);
         $scope.newDevelop.push(us_sp);
 
-         $scope.enabledEditDevelop[$scope.develop.length-1]=true;
+         $scope.enabledEditDevelop[$scope.comuneselop.length-1]=true;
       }
       $scope.editDevelop = function(index){
         var original = $scope.query[index];
-        var updated = $scope.develop[index];
+        var updated = $scope.comuneselop[index];
         $scope.updDevelop.push(updated);
         $scope.updDevelop.push(original);
 
@@ -745,9 +781,9 @@ location.reload();
         $scope.enabledEditDevelop[index] = !$scope.enabledEditDevelop[index];
       }
       $scope.deleteDevelop = function(index) {
-        $scope.delDevelop = $scope.develop[index];
+        $scope.delDevelop = $scope.comuneselop[index];
         console.log($scope.delDevelop);
-          $scope.develop.splice(index,1);
+          $scope.comuneselop.splice(index,1);
 
           $http({
         method: 'POST',
@@ -827,6 +863,169 @@ location.reload();
       }
 
       //FIN TABLAS EDITABLES AÑADIR HISTORIAS AL SPRINT
+
+
+
+
+
+//PARTE DE MAIN-Developer
+$scope.chooseStories = function(){
+  //$window.location.href = '/historias-terminadas.html';
+
+  $scope.scrum_us = 0;
+  $scope.comunes = 0;
+  $scope.scrum_us_sp = 0;
+  $scope.scrum_sp = 0;
+  $scope.perfil = 0;
+  $scope.dev_choose_us = 1;
+  $scope.dev_my_us = 0;
+
+
+  $scope.historiasElegidas = [];
+
+
+  $scope.titulo = "ELEGIR HISTORIA DE USUARIO";
+
+
+  console.log('Obteniendo Historias de Usuario...');
+  $http({
+  method: 'GET',
+  url: '/get/all-Stories'
+
+  }).then(function successCallback(response) {
+
+      $scope.query = response.data.result;
+      $scope.Stories = angular.copy( $scope.query);
+
+      console.log("Estas logeado");
+      console.log(response.data.result);
+
+
+  // this callback will be called asynchronously
+  // when the response is available
+  }, function errorCallback(response) {
+      console.log("No has podido logearte");
+  // called asynchronously if an error occurs
+  // or server returns response with an error status.
+  });
+
+  };
+
+
+
+  //FIN PARTE MAIN-Developer
+
+  $scope.chooseStory = function(index){
+    var user_story = $scope.Stories[index];
+
+    console.log("edit index"+index);
+
+    $scope.historiasElegidas.push(user_story);
+
+    console.log(user_story);
+    console.log($scope.historiasElegidas);
+
+
+    $scope.enabledEdit[index] = !$scope.enabledEdit[index];
+  };
+
+  $scope.submitChooseStory = function(){
+    console.log('ENTRO A LA FUNCION!');
+
+    $http({
+    method: 'POST',
+    url: '/post/choose-stories',
+    data: $scope.historiasElegidas,
+
+    }).then(function successCallback(response) {
+
+      console.log("Historias elegidas con exito");
+
+
+    // this callback will be called asynchronously
+    // when the response is available
+    }, function errorCallback(response) {
+      console.log("No has podido elegir las historias de usuario");
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+    });
+
+    alert('Historias escogidas con exito!');
+    location.reload();
+  };
+
+
+  $scope.myStories = function(){
+    //$window.location.href = '/historias-terminadas.html';
+    $scope.activo = 4;
+    
+    $scope.dev_my_us = 1;
+    $scope.comunes = 0;
+    $scope.scrum_us_sp = 0;
+    $scope.scrum_sp = 0;
+    $scope.scrum_us = 0;
+    $scope.perfil = 0;
+    $scope.dev_choose_us = 0;
+
+    $scope.historiasElegidas = [];
+
+
+    $scope.titulo = "MIS HISTORIAS";
+
+    console.log('Obteniendo Historias de Usuario...');
+    $http({
+  method: 'POST',
+  url: '/get/assigned-Stories',
+  data: {
+        nombre: 'Alex',  //aqui se pasa el nombre por una cookie
+    }
+
+  }).then(function successCallback(response) {
+
+        $scope.query = response.data.result;
+        $scope.Stories = angular.copy( $scope.query);
+
+        console.log("Estas logeado");
+        console.log(response.data.result);
+
+
+    // this callback will be called asynchronously
+    // when the response is available
+  }, function errorCallback(response) {
+        console.log("No has podido logearte");
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+  });
+
+  };
+
+
+  $scope.submitMyStories = function(){
+    console.log('ENTRO A LA FUNCION!');
+
+    $http({
+    method: 'POST',
+    url: '/post/my-stories',
+    data: $scope.historiasElegidas,
+
+    }).then(function successCallback(response) {
+
+      console.log("Historias actualizadas con exito");
+
+
+    // this callback will be called asynchronously
+    // when the response is available
+    }, function errorCallback(response) {
+      console.log("No has podido actualizar las historias de usuario");
+    // called asynchronously if an error occurs
+    // or server returns response with an error status.
+    });
+
+    alert('Historias actualizadas con exito!');
+    location.reload();
+  };
+
+
 
 
 
