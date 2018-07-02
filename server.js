@@ -29,24 +29,39 @@ app.post("/post/register", function(req,res){
   console.log('POST realizado con exito');
   console.log(req.body);
 
-  var quer = {
-    Nombre: req.body.name,
-    Rol: req.body.rol,
-    Nick: req.body.nick,
-    password: req.body.password,
-    "e-mail": req.body.email
-  };
-  var sql = 'insert into team_member set' + mysql.escape(quer);
-  query(sql,function(result,err){
-    if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
-    //if(err)console.log(err)
+var sql0 = 'SELECT * FROM team_member where Nick = "' + req.body.nick +'"';
 
-    if (result) return res.status(200).send({message: 'Usuario registrado con exito'})
+console.log(sql0);
+query(sql0,function(result,err){
+  console.log(result);
+
+  if(result.length!=0){
+    console.log('Nick ya existente en la base de datos, elija otro.');
+    return res.status(500).send({message: `Error al realizar la petición`})
+  }
+  if(result.length==0){
+    var quer = {
+      Nombre: req.body.name,
+      Rol: req.body.rol,
+      Nick: req.body.nick,
+      password: req.body.password,
+      "e-mail": req.body.email
+    };
+    var sql = 'insert into team_member set' + mysql.escape(quer);
+    query(sql,function(result,err){
+      if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
+      //if(err)console.log(err)
+
+      if (result) return res.status(200).send({message: 'Usuario registrado con exito'})
 
 
-    res.redirect("/");
-    res.end();
-  })
+      res.redirect("/");
+      res.end();
+    })
+
+  }
+});
+
 });
 
 //Peticion POST para logear usuarios (comprobamos si estan en el sistema)
@@ -750,7 +765,7 @@ app.post("/post/choose-stories", function(req,res){
 
       for (var i = 1; i < req.body.length; i++) {
         var quer = {
-          id_tm: id                 //esto irá con COOKIES!!
+          id_tm: id
         };
 
         var sql = 'UPDATE develop SET ' + mysql.escape(quer) + ' WHERE `id_us` = "' + req.body[i].id_us + '"';
@@ -761,7 +776,7 @@ app.post("/post/choose-stories", function(req,res){
         });
 
         var quer2 = {
-          Developer:id,           //esto irá con COOKIES!!
+          Developer:id,
         }
 
         var sql2 = 'UPDATE stored_user_story SET ' + mysql.escape(quer2) + ' WHERE `Nombre` = "' + req.body[i].Nombre + '"';
@@ -778,7 +793,7 @@ app.post("/post/choose-stories", function(req,res){
 
       res.redirect("/");
       res.end();
-      
+
     }
   });
 

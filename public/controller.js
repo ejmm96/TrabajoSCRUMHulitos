@@ -146,11 +146,11 @@ angular.module('scrumApp', [])
         alert('Registro completado correctamente');
         location.reload();
 
-
     // this callback will be called asynchronously
     // when the response is available
   }, function errorCallback(response) {
-        console.log("Estas registrado");
+        console.log("El nick ya existe, por favor elija otro que esté disponible.");
+        alert('El nick ya existe, por favor elija otro que esté disponible.');
     // called asynchronously if an error occurs
     // or server returns response with an error status.
   });
@@ -188,6 +188,7 @@ angular.module('scrumApp', [])
     // when the response is available
   }, function errorCallback(response) {
         console.log("No has podido logearte");
+        alert('Usuario o contraseña incorrectos.');
     // called asynchronously if an error occurs
     // or server returns response with an error status.
   });
