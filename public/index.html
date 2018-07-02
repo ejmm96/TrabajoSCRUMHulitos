@@ -1,3 +1,4 @@
+
 <!doctype html>
 
 
@@ -7,53 +8,143 @@
         <title>Scrum</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script>
+
+        <!-- FONTAWESOME STYLES-->
+        <link href="assets/css/fontawesome-all.css" rel="stylesheet" type='text/css' />
+        <!-- CUSTOM STYLES-->
+        <link href="assets/css/custom.css" rel="stylesheet" type='text/css' />
+        <!-- GOOGLE FONTS-->
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/html' />
+        <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,300,600' rel='stylesheet' type='text/css'>
         
-        <!--Rutas Angular-->
-        <scrip src="assets/libs/js/angular-animate.min.js"></scrip>
+        <!-- TABLAS-->
+        <link rel="stylesheet" type="text/css" href="assets/css/util.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/reg_log.css">
+
+        <!-- ANGULAR-->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular.min.js"></script><script src="assets/libs/js/angular-animate.min.js"></script>
         <script src="assets/libs/js/angular-route.min.js"></script>
         <script src="assets/libs/js/angular-touch.min.js"></script>
-        <script src="assets/libs/js/angular.min.js"></script>
+
         
         
+          <!-- BOOTSTRAP -->
+        
+
         <script src="controller.js"></script>
+        
+        
+        
+        <script src="assets/js/jquery-3.1.1.min.js"></script>
+        <script src="assets/js/main.js"></script>
 
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+        <script  src="assets/js/reg_log.js"></script>
 
-    </head>
+        
+</head>
+  <body ng-app = "scrumApp" ng-controller = "scrum-ctrl">
+    
+      
+      
+      
+      <div class="contenedor-formularios">
+        <!-- Links de los formularios -->
+        <ul class="contenedor-tabs">
+            <li class="tab tab-segunda active"><a href="#iniciar-sesion">Iniciar Sesión</a></li>
+            <li class="tab tab-primera"><a href="#registrarse">Registrarse</a></li>
+        </ul>
 
-    <body ng-app = "scrumApp" ng-controller = "scrum-ctrl">
-            <h1>Prueba Pagina de REGISTRO</h1>
+        <!-- Contenido de los Formularios -->
+        <div class="contenido-tab">
+            <!-- Iniciar Sesion -->
+            <div id="iniciar-sesion">
+                <h1>Iniciar Sesión</h1>
+                <form  ng-submit="login()">
+                    <div class="contenedor-input">
+                        <label>
+                            Usuario <span class="req">*</span>
+                        </label>
+                        <input type="text" name = "nick_login" ng-model="nick_login"  required>
 
-            <form>
-                <label>Name: <input type="text" name = "name" ng-model="name" placeholder="Your name please" required></label> <br>
-                <label>Rol:
-                    <select ng-model = "rol" name="rol" required>
+                    </div>
+
+                    <div class="contenedor-input">
+                        <label>
+                            Contraseña <span class="req">*</span>
+                        </label>
+                        <input type="password" name="password_login" ng-model = "password_login" required>
+                    </div>
+                    <p class="forgot"><a href="#">Se te olvidó la contraseña?</a></p>
+                    <input type="submit" class="button button-block" value="Iniciar Sesión">
+                </form>
+            </div>
+
+            <!-- Registrarse -->
+            <div id="registrarse">
+                <h1>Registrarse</h1>
+                <form ng-submit="registro()">
+                    <div class="fila-arriba">
+                        <div class="contenedor-input">
+                            <label>
+                                Nombre <span class="req">*</span>
+                            </label>
+                            <input type="text" name = "name" ng-model="name" required >
+                        </div>
+
+                        <div class="contenedor-input">
+                       
+                                 
+                          
+                        <select ng-model = "rol" name="rol" required>
                         <option selected>Developer</option>
                         <option>Scrum Master</option>
-                    </select>
-                </label><br>
-                <label>Nick: <input type="text" name = "nick" ng-model="nick" required></label><br>
-                <label>Correo: <input type="text" name="email" ng-model = "email" required></label><br>
-                <label>Password: <input type="password" name="password" ng-model = "password" required></label><br>
+                    </select>                    
+                    
+                    </div>
+                    </div>
+                    <div class="contenedor-input">
+                        <label>
+                            Nick <span class="req">*</span>
+                        </label>
+                        <input type="text" name = "nick" ng-model="nick" required>
+                    </div>
+                    <div class="contenedor-input">
+                            <label>
+                                Correo <span class="req">*</span>
+                            </label>
+                        <input type="email" name="email" ng-model = "email" required>
+                    </div>
+                    <div class="contenedor-input">
+                        <label>
+                            Contraseña <span class="req">*</span>
+                        </label>
+                        <input type="password" name="password" ng-model = "password" required>
+                    </div>
 
-                <input type = "button" ng-click = "registro()" ng-disabled='!name || !rol || !nick || !email || !password'value="SIGN UP!">
+                    <div class="contenedor-input">
+                        <label>
+                            Repetir Contraseña <span class="req">*</span>
+                        </label>
+                        <input type="password" name="password" ng-model = "password_repeated"required>
+                    </div>
 
-            </form>
+                    <input type="submit" class="button button-block" value="Registrarse">
+                </form>
+            </div>
+        </div>
+    </div>
 
-            <h1>Prueba Pagina de LOGIN</h1>
+   
 
+</body>
+</html>
 
-            <form>
-            <label>Nick:<input type="text" name = "nick_login" ng-model="nick_login"></label><br>
-                <br>
-            <label>Password: <input type="password" name="password_login" ng-model = "password_login"></label><br>
-                <br>
-            <input type = "button" ng-click = "login()" ng-disabled='!nick_login || !password_login' value="LOG IN!">
-            </form>
+  
 
-            </body>
-
-
-        </html>
+      
+      
+      
+      
+      
+      

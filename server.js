@@ -42,8 +42,13 @@ app.post("/post/register", function(req,res){
     //if(err)console.log(err)
 
     if (result) return res.status(200).send({message: 'Usuario registrado con exito'})
+<<<<<<< HEAD
 
     res.redirect("/main-srum");
+=======
+      
+    res.redirect("/");
+>>>>>>> 1626c32455d458ff46e4292969ab4b461d8f5985
     res.end();
   })
 });
@@ -57,6 +62,7 @@ app.post("/get/login", function(req,res){
   query(sql,function(result,err){
     if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})
     //if(err) console.log(err)
+<<<<<<< HEAD
     if (result.length!=0) {
 
       console.log("Cuenta valida");
@@ -65,6 +71,15 @@ app.post("/get/login", function(req,res){
     }
     else {
       return res.status(404).send({message: 'No se ha encontrado usuario en la base de datos'})
+=======
+    if (result!=0) {
+      return res.status(200).send({message: 'Cuenta valida', result})
+      console.log("Cuenta valida");  
+    }
+      else {
+      return res.status(404).send({message: 'No se han encontrado historias completadas'})
+      console.log("No se han encontrado historias completadas");
+>>>>>>> 1626c32455d458ff46e4292969ab4b461d8f5985
     }
     res.redirect("/");
     res.end();
@@ -73,7 +88,13 @@ app.post("/get/login", function(req,res){
 
 app.post("/get/user-data", function(req,res){
   console.log('Obteniendo Datos del Usuario...');
+<<<<<<< HEAD
   var sql = 'select * from team_member where Nombre = "' + req.body.nombre +'"'; //Aqui habra que recoger el nombre de una cookie
+=======
+  console.log(req.body);
+
+  var sql = 'select * from team_member  where nick = "' + req.body.nick + '";' //Aqui habra que recoger el nombre de una cookie
+>>>>>>> 1626c32455d458ff46e4292969ab4b461d8f5985
   console.log(sql);
   query(sql,function(result,err){
     if (err) return res.status(500).send({message: `Error al realizar la petición: ${err}`})

@@ -30,14 +30,25 @@ angular.module('scrumApp', [])
 
 
         console.log('Obteniendo Datos del Usuario...');
+        console.log(document.cookie);
+        var cookieValue = getCook('nick');
+        $scope.nick = cookieValue;
+        console.log(cookieValue);
         $http({
       method: 'POST',
       url: '/get/user-data',
+<<<<<<< HEAD
       data: {
             nombre: 'Alex',  //aqui se pasa el nombre por una cookie
         }
 
 
+=======
+       data: {                      //Le paso el nick del usuario para hacer la consulta
+        nick: $scope.nick,
+        
+        }
+>>>>>>> 1626c32455d458ff46e4292969ab4b461d8f5985
       }).then(function successCallback(response) {
 
             $scope.query = response.data.result;
@@ -57,6 +68,16 @@ angular.module('scrumApp', [])
 
       };
 
+    //
+    function getCook(cookiename) 
+  {
+  // Get name followed by anything except a semicolon
+  var cookiestring=RegExp(""+cookiename+"[^;]+").exec(document.cookie);
+  // Return everything after the equal sign, or an empty string if the cookie name not found
+  return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+  }
+
+    
 
       //TABLAS EDITABLES PERFIL
 
@@ -153,6 +174,10 @@ angular.module('scrumApp', [])
 
         console.log("Estas logeado");
         console.log(response);
+        var nick = response.data.result[0].Nick;
+        document.cookie = 'nick='+nick+'; max-age=3600; path=/'
+        console.log(document.cookie)
+        location.href ="/main-scrum.html";
 
     // this callback will be called asynchronously
     // when the response is available
