@@ -143,6 +143,10 @@ angular.module('scrumApp', [])
 }).then(function successCallback(response) {
         console.log("Estas registrado");
         console.log(response);
+        alert('Registro completado correctamente');
+        location.reload();
+
+
     // this callback will be called asynchronously
     // when the response is available
   }, function errorCallback(response) {
@@ -909,6 +913,8 @@ $scope.chooseStories = function(){
 
 
   $scope.historiasElegidas = [];
+  $scope.historiasElegidas.push($scope.nick);
+
 
 
   $scope.titulo = "ELEGIR HISTORIA DE USUARIO";
@@ -997,14 +1003,15 @@ $scope.chooseStories = function(){
     $scope.historiasElegidas = [];
 
 
+
     $scope.titulo = "MIS HISTORIAS";
 
     console.log('Obteniendo Historias de Usuario...');
     $http({
   method: 'POST',
-  url: '/get/assigned-Stories',
+  url: '/get/my-stories',
   data: {
-        nombre: 'Alex',  //aqui se pasa el nombre por una cookie
+        nick: $scope.nick,  //aqui se pasa el nombre por una cookie
     }
 
   }).then(function successCallback(response) {
@@ -1053,8 +1060,10 @@ $scope.chooseStories = function(){
   };
 
 
-
-
+  $scope.exit = function(){
+    location.href ="/";
+    document.cookie = 'nick' + '=; Max-Age=0';
+  }
 
 
 
