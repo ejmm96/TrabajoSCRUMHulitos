@@ -37,18 +37,11 @@ angular.module('scrumApp', [])
         $http({
       method: 'POST',
       url: '/get/user-data',
-<<<<<<< HEAD
-      data: {
-            nombre: 'Alex',  //aqui se pasa el nombre por una cookie
-        }
 
-
-=======
        data: {                      //Le paso el nick del usuario para hacer la consulta
         nick: $scope.nick,
-        
+
         }
->>>>>>> 1626c32455d458ff46e4292969ab4b461d8f5985
       }).then(function successCallback(response) {
 
             $scope.query = response.data.result;
@@ -69,7 +62,7 @@ angular.module('scrumApp', [])
       };
 
     //
-    function getCook(cookiename) 
+    function getCook(cookiename)
   {
   // Get name followed by anything except a semicolon
   var cookiestring=RegExp(""+cookiename+"[^;]+").exec(document.cookie);
@@ -77,7 +70,7 @@ angular.module('scrumApp', [])
   return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
   }
 
-    
+
 
       //TABLAS EDITABLES PERFIL
 
@@ -983,7 +976,7 @@ $scope.chooseStories = function(){
   $scope.myStories = function(){
     //$window.location.href = '/historias-terminadas.html';
     $scope.activo = 4;
-    
+
     $scope.dev_my_us = 1;
     $scope.comunes = 0;
     $scope.scrum_us_sp = 0;
