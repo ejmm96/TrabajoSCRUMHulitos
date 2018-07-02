@@ -155,7 +155,7 @@ input:focus {
   -webkit-appearance: none;
 }
 .button:hover, .button:focus {
-  background: #9c6717;
+  background: #9f512d;
 }
 
 .button-block {
