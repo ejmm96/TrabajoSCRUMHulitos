@@ -734,15 +734,15 @@ app.post("/post/update-user", function(req,res){
       password: req.body[i].password,
       "e-mail": req.body[i]['e-mail']
     };
-
-    var sql = 'UPDATE team_member SET ' + mysql.escape(quer) + 'WHERE Nombre = "' + req.body[i+1].Nombre + '" AND Nick = "'+req.body[i+1].Nick +'"';
+    var sql = 'UPDATE team_member SET ' + mysql.escape(quer) + 'WHERE Nombre = "' + req.body[i+1].Nombre + '"';
     console.log(sql);
     i++;
     query(sql,function(result,err){
       if(err)console.log(err)
       if(result)console.log(result)
     });
-  }
+
+}
 
   if (i = req.body.length) return res.status(200).send({message: 'Usuario Actualizado'})
   else return res.status(500).send({message: 'Error, no se ha podido actualizar el usuario'})

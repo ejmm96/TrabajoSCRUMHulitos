@@ -91,7 +91,7 @@ angular.module('scrumApp', [])
         $scope.enabledEditUser[index] = !$scope.enabledEditUser[index];
       }
 
-      $scope.submitUser = function(){
+        $scope.submitUser = function(){
 
 
       if ($scope.updUser.length !=0){
@@ -102,20 +102,21 @@ angular.module('scrumApp', [])
 
       }).then(function successCallback(response) {
 
-        console.log("Sprints actualizados con exito");
+        console.log("Usuario actualizado con éxito");
+
+              alert('Datos del usuario actualizados con éxito!');
+              $scope.exit();
 
 
       // this callback will be called asynchronously
       // when the response is available
       }, function errorCallback(response) {
-        console.log("No has podido actualizar los sprints");
+        console.log("No has podido actualizar los datos de usuario");
       // called asynchronously if an error occurs
       // or server returns response with an error status.
       });
       $scope.updUser = [];
 
-      alert('Base de datos actualizada!');
-      location.reload();
       }
 
 
@@ -500,11 +501,14 @@ $scope.editStories = function(){
 
         console.log("Historias insertadas con exito");
 
+              alert('Historias insertadas con éxito');
+              location.reload();
+
 
     // this callback will be called asynchronously
     // when the response is available
   }, function errorCallback(response) {
-        console.log("No has podido logearte");
+        console.log("No has podido insertar historias");
     // called asynchronously if an error occurs
     // or server returns response with an error status.
   });
@@ -690,6 +694,8 @@ location.reload();
   }).then(function successCallback(response) {
 
         console.log("Sprints insertados con exito");
+        alert('Sprints insertados con éxito');
+        location.reload();
 
 
     // this callback will be called asynchronously
@@ -850,7 +856,9 @@ location.reload();
 
       }).then(function successCallback(response) {
 
-            console.log("Sprints insertados con exito");
+            console.log("Historias añadidas al sprint con exito");
+            alert('Historias añadidas al sprint con exito');
+            location.reload();
 
 
         // this callback will be called asynchronously
@@ -964,7 +972,6 @@ $scope.chooseStories = function(){
   };
 
   $scope.submitChooseStory = function(){
-    console.log('ENTRO A LA FUNCION!');
 
     $http({
     method: 'POST',
@@ -974,6 +981,8 @@ $scope.chooseStories = function(){
     }).then(function successCallback(response) {
 
       console.log("Historias elegidas con exito");
+      alert('Historias escogidas con éxito');
+      location.reload();
 
 
     // this callback will be called asynchronously
@@ -984,8 +993,7 @@ $scope.chooseStories = function(){
     // or server returns response with an error status.
     });
 
-    alert('Historias escogidas con exito!');
-    location.reload();
+
   };
 
 
@@ -1046,6 +1054,8 @@ $scope.chooseStories = function(){
     }).then(function successCallback(response) {
 
       console.log("Historias actualizadas con exito");
+      alert('Historias actualizadas con éxito');
+      location.reload();
 
 
     // this callback will be called asynchronously
@@ -1056,8 +1066,7 @@ $scope.chooseStories = function(){
     // or server returns response with an error status.
     });
 
-    alert('Historias actualizadas con exito!');
-    location.reload();
+
   };
 
 
