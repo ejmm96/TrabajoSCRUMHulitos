@@ -591,7 +591,7 @@ location.reload();
 
 
         $scope.query = response.data.result;
-        $scope.scrum_sps = angular.copy( $scope.query);
+        $scope.Sprints = angular.copy( $scope.query);
 
         console.log("Sprints obtenidos con exito.");
         console.log(response.data.result);
@@ -621,14 +621,14 @@ location.reload();
 
       var sp ={ id_sp:"",'Fecha inicio':"",'Fecha fin':"",
                      Nombre:"",'Horas acumuladas':"",Status:"", Review:"-1", disableEdit:false};
-    $scope.scrum_sps.push(sp);
+    $scope.Sprints.push(sp);
     $scope.newSprint.push(sp);
 
-     $scope.enabledEditSprint[$scope.scrum_sps.length-1]=true;
+     $scope.enabledEditSprint[$scope.Sprints.length-1]=true;
   }
   $scope.editSprint = function(index){
     var original = $scope.query[index];
-    var updated = $scope.scrum_sps[index];
+    var updated = $scope.Sprints[index];
     $scope.updSprint.push(updated);
     $scope.updSprint.push(original);
 
@@ -639,9 +639,9 @@ location.reload();
     $scope.enabledEditSprint[index] = !$scope.enabledEditSprint[index];
   }
   $scope.deleteSprint = function(index) {
-    $scope.delSprint = $scope.scrum_sps[index];
+    $scope.delSprint = $scope.Sprints[index];
     console.log($scope.delSprint);
-      $scope.scrum_sps.splice(index,1);
+      $scope.Sprints.splice(index,1);
 
       $http({
     method: 'POST',
@@ -723,7 +723,7 @@ location.reload();
   //FIN TABLAS EDITABLES SPRINT
 
 
-    $scope.scrum_spStories = function(){
+    $scope.sprintStories = function(){
 
 
 
@@ -752,7 +752,7 @@ location.reload();
 
 
           $scope.query = response.data.result;
-          $scope.comuneselop = angular.copy( $scope.query);
+          $scope.develop = angular.copy( $scope.query);
 
           console.log("Sprints obtenidos con exito.");
           console.log(response.data.result);
@@ -781,14 +781,15 @@ location.reload();
         $scope.addDevelop = function(){
 
           var us_sp ={ NombreSp:"", NombreUs:"",disableEdit:false};
-        $scope.comuneselop.push(us_sp);
+
+        $scope.develop.push(us_sp);
         $scope.newDevelop.push(us_sp);
 
-         $scope.enabledEditDevelop[$scope.comuneselop.length-1]=true;
+         $scope.enabledEditDevelop[$scope.develop.length-1]=true;
       }
       $scope.editDevelop = function(index){
         var original = $scope.query[index];
-        var updated = $scope.comuneselop[index];
+        var updated = $scope.develop[index];
         $scope.updDevelop.push(updated);
         $scope.updDevelop.push(original);
 
@@ -799,9 +800,9 @@ location.reload();
         $scope.enabledEditDevelop[index] = !$scope.enabledEditDevelop[index];
       }
       $scope.deleteDevelop = function(index) {
-        $scope.delDevelop = $scope.comuneselop[index];
+        $scope.delDevelop = $scope.develop[index];
         console.log($scope.delDevelop);
-          $scope.comuneselop.splice(index,1);
+          $scope.develop.splice(index,1);
 
           $http({
         method: 'POST',
