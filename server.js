@@ -529,11 +529,17 @@ app.post("/post/add-develop", function(req,res){
 
     var sql = 'SELECT user_story.id_us, sprint.id_sp FROM user_story INNER JOIN sprint WHERE sprint.Nombre = "' + req.body[i].NombreSp + '" AND user_story.Nombre = "' + req.body[i].NombreUs + '"';
     console.log(sql);
-    var sql2 = 'SELECT * FROM user_story WHERE user_story.Nombre = "' + req.body[i].NombreUs + '"';
+
+
     query(sql,function(result1,err){
       if(err)console.log(err)
       if(result1){
+        console.log(result1);
+        var sql2 = 'SELECT * FROM user_story WHERE user_story.id_us = "' + result1[0].id_us + '"';
+        console.log(sql2);
+
         query(sql2,function(result2,err){
+          console.log(result2);
           if(err)console.log(err)
 
           var quer2 = {
@@ -558,6 +564,7 @@ app.post("/post/add-develop", function(req,res){
           console.log(sql3);
 
           var sql4 = 'insert into stored_user_story set' + mysql.escape(quer3);
+          console.log(sql4);
 
           query(sql3,function(result,err){
             if(err)console.log(err)
